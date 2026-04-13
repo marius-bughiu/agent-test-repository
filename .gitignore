@@ -1,0 +1,32 @@
+# Test run artifacts
+results.json
+scorecard.json
+/tmp-*
+/.agent-workdir/
+/.agent-sandbox/
+
+# Per-agent state
+/.agent-results/
+/agent-runs/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Node
+node_modules/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+!.vscode/extensions.json
+
+# Logs
+*.log
