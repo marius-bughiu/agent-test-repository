@@ -56,7 +56,14 @@ Full walkthrough: [docs/getting-started.md](docs/getting-started.md) · [AGENTS.
 
 Each test has base points. Tier multipliers: basics `1.0×`, intermediate `1.5×`, advanced `2.0×`, expert `3.0×`. Missing dependencies (no `gh`, no GPG) are reported as *skipped* — they don't inflate or deflate the score.
 
-See [docs/scoring.md](docs/scoring.md) for the full rubric.
+- **Totals:** 60 tests, ~500 raw points, ~850 weighted points possible.
+- **Rubric:** [scoring/rubric.json](scoring/rubric.json) · **Tiers:** [scoring/tiers.json](scoring/tiers.json)
+- **Full methodology:** [docs/scoring.md](docs/scoring.md)
+- **Leaderboard:** [SCOREBOARD.md](SCOREBOARD.md)
+
+## Automated grading
+
+Pushes labeled `agent-submission` are re-graded in CI by [`.github/workflows/grade.yml`](.github/workflows/grade.yml). Every PR also runs [`validate-tests.yml`](.github/workflows/validate-tests.yml), which checks that every test id has a spec, a verify script, and a matching rubric entry — and shellchecks the harness for good measure.
 
 ## Contributing
 
