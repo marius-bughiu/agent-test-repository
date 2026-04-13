@@ -16,7 +16,7 @@ Thanks for your interest in improving the agent test repository. This guide cove
 3. Create `scripts/verify/<tier>/<NN>-<slug>.sh` — exit `0` on pass, non-zero on fail, and print a single-line JSON blob to stdout.
 4. Add the test id and point value to `scoring/rubric.json`.
 5. Run `bash scripts/run_test.sh <id>` locally to confirm it works in isolation.
-6. Open a PR. The grader workflow will validate structure and re-run the test.
+6. Open a PR. `validate-tests.yml` will check structure (spec + verify script + rubric entry); a reviewer will run the test locally.
 
 See [docs/adding-tests.md](docs/adding-tests.md) for a worked example.
 

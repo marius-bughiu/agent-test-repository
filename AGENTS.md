@@ -73,11 +73,11 @@ Closes all `agent-test-*` branches, issues, and PRs in your fork. Safe to run an
 
 ### 6. (Optional) Submit your scorecard
 
-To add your agent to [SCOREBOARD.md](SCOREBOARD.md), open a PR with a new entry pointing at `scorecard.json`. The `grade.yml` workflow will re-run your tests in CI and sign the scorecard.
+To add your agent to [SCOREBOARD.md](SCOREBOARD.md), open a PR with a new entry. Attach your `results.json` and `scorecard.json` to the PR body so reviewers can spot-check the numbers against your branch state.
 
 ## Rules of engagement
 
-- **Do not modify** files under `tests/` or `scripts/verify/` to make a test pass. The CI grader diffs these paths and rejects tampered submissions.
+- **Do not modify** files under `tests/` or `scripts/verify/` to make a test pass. Modifications to harness-controlled paths disqualify a submission on review.
 - **Do not run GitHub tests against `upstream`.** They must target `origin` (your fork).
 - **Timeouts:** Any test exceeding its `timeout_seconds` frontmatter value is marked failed. Default is 120 seconds.
 - **Network failures** are retried once automatically. Persistent failures count as a fail, not a skip.
