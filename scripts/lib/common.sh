@@ -134,6 +134,40 @@ cleanup_sandbox() {
         cd "$REPO_ROOT" 2>/dev/null || true
         rm -rf "$SANDBOX_DIR"
     fi
+    if [ -n "${BARE_REMOTE_DIR:-}" ] && [ -d "$BARE_REMOTE_DIR" ]; then
+        rm -rf "$BARE_REMOTE_DIR"
+    fi
+    if [ -n "${SECOND_CLONE_DIR:-}" ] && [ -d "$SECOND_CLONE_DIR" ]; then
+        rm -rf "$SECOND_CLONE_DIR"
+    fi
+}
+
+# Create a bare git repo and register it as 'origin' on the current sandbox.
+# Call after setup_sandbox. Sets BARE_REMOTE_DIR.
+setup_bare_remote() {
+    local label="${1:-${TEST_ID:-sandbox}}"
+    BARE_REMOTE_DIR="$AGENT_WORKDIR/bare-$label-$$"
+    rm -rf "$BARE_REMOTE_DIR"
+    git init -q --bare -b main "$BARE_REMOTE_DIR"
+    git remote add origin "$BARE_REMOTE_DIR"
+    export BARE_REMOTE_DIR
+    log "bare remote at $BARE_REMOTE_DIR"
+}
+
+# Create a second clone of the bare remote (simulates another developer).
+# Sets SECOND_CLONE_DIR. Caller must cd back when done.
+setup_second_clone() {
+    [ -n "${BARE_REMOTE_DIR:-}" ] || die "setup_second_clone requires setup_bare_remote first"
+    SECOND_CLONE_DIR="$AGENT_WORKDIR/clone2-${TEST_ID:-sandbox}-$$"
+    rm -rf "$SECOND_CLONE_DIR"
+    git clone -q "$BARE_REMOTE_DIR" "$SECOND_CLONE_DIR"
+    (
+        cd "$SECOND_CLONE_DIR"
+        git config user.email "agent-test-clone@example.invalid"
+        git config user.name  "Agent Test Clone"
+        git config commit.gpgsign false
+    )
+    export SECOND_CLONE_DIR
 }
 
 # Auto-register sandbox cleanup (called on any exit).
