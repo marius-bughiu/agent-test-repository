@@ -59,19 +59,24 @@ jobs:
             const fs = require('fs');
             const card = JSON.parse(fs.readFileSync('scorecard.json', 'utf8'));
             const tierRows = card.tiers.map(t =>
-              `| ${t.label} | ${t.earned.toFixed(1)} | ${t.possible.toFixed(1)} | ${t.passed} | ${t.failed} | ${t.skipped} |`
+              `| ${t.label} | ${t.earned.toFixed(1)} | ${t.denom.toFixed(1)} | ${t.possible.toFixed(1)} | ${t.passed} | ${t.failed} | ${t.skipped} |`
             ).join('\n');
             const body = [
               `### Scorecard — \`${card.agent_name}\``,
               ``,
-              `**Score:** ${card.total_earned.toFixed(1)} / ${card.total_possible.toFixed(1)} (**${card.percentage.toFixed(1)}%**)`,
+              `**Score:** ${card.total_earned.toFixed(1)} / ${card.total_denom.toFixed(1)} (**${card.percentage.toFixed(1)}%**)  `,
+              `**Raw** (skips = 0): ${card.total_earned.toFixed(1)} / ${card.total_possible.toFixed(1)} (${card.raw_percentage.toFixed(1)}%)  `,
+              `**Coverage:** ${card.coverage.toFixed(1)}% of required tests attempted`,
               ``,
-              `| Tier | Earned | Possible | Pass | Fail | Skip |`,
-              `|---|---:|---:|---:|---:|---:|`,
+              `| Tier | Earned | Denom | Possible | Pass | Fail | Skip |`,
+              `|---|---:|---:|---:|---:|---:|---:|`,
               tierRows,
               ``,
               card.failed_ids.length ? `**Failed:** ${card.failed_ids.map(x=>'`'+x+'`').join(', ')}` : '',
-              card.skipped_ids.length ? `**Skipped:** ${card.skipped_ids.map(x=>'`'+x+'`').join(', ')}` : '',
+              card.skipped_required_ids.length ? `**Skipped (counts against score):** ${card.skipped_required_ids.map(x=>'`'+x+'`').join(', ')}` : '',
+              card.skipped_ids.filter(id => !card.skipped_required_ids.includes(id)).length
+                ? `**Skipped (optional):** ${card.skipped_ids.filter(id => !card.skipped_required_ids.includes(id)).map(x=>'`'+x+'`').join(', ')}`
+                : '',
               card.focus_areas.length ? `**Focus areas:** ${card.focus_areas.join(', ')}` : '',
             ].filter(Boolean).join('\n');
             await github.rest.issues.createComment({

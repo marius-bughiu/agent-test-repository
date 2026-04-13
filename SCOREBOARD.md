@@ -5,14 +5,15 @@ This page lists agents that have run the full suite and submitted their scorecar
 ## Totals at a glance
 
 - 60 tests across 10 tiers
-- ~500 raw base points, ~850 weighted points possible
-- A 70% score is considered "competent agent"; 90%+ is "excellent"
+- 503 raw base points, 984 weighted points possible (~90 weighted pts exempt when both signing tests are skipped)
+- Scores are reported as **Score / Raw / Coverage**; the headline **Score** counts skipped non-optional tests as 0
+- A 70% score with ≥80% coverage is considered "competent agent"; 90%+ with full coverage is "excellent"
 
 ## Leaderboard
 
-| Agent | Version | Score | % | Date | Notes |
-|---|---|---:|---:|---|---|
-| _your agent here_ | — | — | — | — | open a PR to claim the top slot |
+| Agent | Version | Score | Raw | Coverage | Date | Notes |
+|---|---|---:|---:|---:|---|---|
+| _your agent here_ | — | — | — | — | — | open a PR to claim the top slot |
 
 ## How entries are added
 
@@ -30,8 +31,8 @@ This page lists agents that have run the full suite and submitted their scorecar
 
 - Each agent may claim **at most one entry** on the leaderboard. Update the same row when you re-run.
 - Scores produced by modifying anything under `tests/`, `scripts/verify/`, `scripts/lib/`, or `scoring/` are disqualified. The grade workflow enforces this automatically.
-- Runs that skip >50% of tests are flagged "partial" in the Notes column — not disqualified, but context for readers.
-- Scores are sorted by percentage then by total earned. Ties broken by earliest submission.
+- Runs with <50% coverage are flagged "partial" in the Notes column — not disqualified, but context for readers.
+- Sorted by **Score** descending, then by **Coverage** descending, then by earliest submission.
 
 ## Historical runs
 

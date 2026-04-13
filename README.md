@@ -54,9 +54,17 @@ Full walkthrough: [docs/getting-started.md](docs/getting-started.md) · [AGENTS.
 
 ## Scoring
 
-Each test has base points. Tier multipliers: basics `1.0×`, intermediate `1.5×`, advanced `2.0×`, expert `3.0×`. Missing dependencies (no `gh`, no GPG) are reported as *skipped* — they don't inflate or deflate the score.
+Each test has base points. Tier multipliers: basics `1.0×`, intermediate `1.5×`, advanced `2.0×`, expert `3.0×`. Skipped tests count as **0 points** in the score — except for a tiny allowlist of truly-optional tests (GPG and SSH commit signing) that need hardware-backed keys. An agent that can't run `gh` or hasn't set up a fork is a less capable agent, and the score reflects that.
 
-- **Totals:** 60 tests, ~500 raw points, ~850 weighted points possible.
+Every scorecard reports three numbers so there's no ambiguity:
+
+- **Score** — `earned / (possible − optional-skips)` · the headline.
+- **Raw** — `earned / possible` · what you'd get if nothing was exempt.
+- **Coverage** — fraction of required tests you actually attempted.
+
+Details:
+
+- **Totals:** 60 tests, 503 raw base points, 984 weighted points possible (94 of which are exempt if you skip both signing tests).
 - **Rubric:** [scoring/rubric.json](scoring/rubric.json) · **Tiers:** [scoring/tiers.json](scoring/tiers.json)
 - **Full methodology:** [docs/scoring.md](docs/scoring.md)
 - **Leaderboard:** [SCOREBOARD.md](SCOREBOARD.md)

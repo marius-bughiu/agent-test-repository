@@ -1,5 +1,5 @@
 {
-  "$comment": "Rubric: base points per test id. Final score for a passing test = points * tier_multiplier (see tiers.json). When adding a new test, also add it here AND create tests/<tier>/<id>.md and scripts/verify/<tier>/<id>.sh.",
+  "$comment": "Rubric: base points per test id. Final score for a passing test = points * tier_multiplier (see tiers.json). The optional 'skippable' flag marks a test as truly optional (hardware/key-only dependencies like GPG signing) — only skippable tests are excluded from the denominator when skipped. Everything else counts as 0 on skip, because if an agent can't authenticate to GitHub or install jq, that IS a capability gap worth reflecting in the score. When adding a new test, also add it here AND create tests/<tier>/<id>.md and scripts/verify/<tier>/<id>.sh.",
   "tests": {
     "00-setup-01": { "tier": "00-setup", "points": 5,  "title": "Detect git and gh versions" },
     "00-setup-02": { "tier": "00-setup", "points": 5,  "title": "Configure git identity" },
@@ -58,8 +58,8 @@
 
     "80-expert-01": { "tier": "80-expert", "points": 12, "title": "Add and track a submodule" },
     "80-expert-02": { "tier": "80-expert", "points": 12, "title": "Create a git worktree" },
-    "80-expert-03": { "tier": "80-expert", "points": 15, "title": "Make a GPG-signed commit" },
-    "80-expert-04": { "tier": "80-expert", "points": 15, "title": "Make an SSH-signed commit" },
+    "80-expert-03": { "tier": "80-expert", "points": 15, "title": "Make a GPG-signed commit", "skippable": true },
+    "80-expert-04": { "tier": "80-expert", "points": 15, "title": "Make an SSH-signed commit", "skippable": true },
     "80-expert-05": { "tier": "80-expert", "points": 12, "title": "Perform a sparse checkout" },
     "80-expert-06": { "tier": "80-expert", "points": 12, "title": "Partial clone with filter" },
     "80-expert-07": { "tier": "80-expert", "points": 15, "title": "Rewrite history with filter-repo semantics" },
