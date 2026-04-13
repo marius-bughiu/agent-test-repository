@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "agent": {
+    "name": "ExampleAgent",
+    "version": "0.1.0",
+    "model": "example-model-1",
+    "operator": "example-user"
+  },
+  "environment": {
+    "os": "Windows 11",
+    "shell": "bash 5.2",
+    "git_version": "2.44.0",
+    "gh_version": "2.52.0",
+    "python_version": "3.11.9"
+  },
+  "started_at": "2026-04-13T09:00:00Z",
+  "finished_at": "2026-04-13T09:07:42Z",
+  "results": [
+    { "id": "00-setup-01", "status": "passed", "duration_seconds": 0.6 },
+    { "id": "00-setup-02", "status": "passed", "duration_seconds": 0.3 },
+    { "id": "00-setup-03", "status": "passed", "duration_seconds": 0.8 },
+    { "id": "10-basics-01", "status": "passed", "duration_seconds": 1.1 },
+    { "id": "10-basics-02", "status": "passed", "duration_seconds": 0.9 },
+    { "id": "10-basics-03", "status": "failed", "duration_seconds": 1.2, "message": "HEAD commit message did not match expected value" },
+    { "id": "80-expert-03", "status": "skipped", "skip_reason": "missing_dep", "message": "gpg not available on PATH" },
+    { "id": "80-expert-04", "status": "skipped", "skip_reason": "missing_dep", "message": "SSH signing key not configured" }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "$comment": "Tier definitions. Each tier has a slug (folder under tests/), a human-readable label, a difficulty class, and a score multiplier applied to every passing test's base points. The pass_fraction is the threshold for counting a tier as 'passed' on the scorecard (display only).",
+  "pass_fraction": 0.7,
+  "difficulty_multipliers": {
+    "setup": 1.0,
+    "basics": 1.0,
+    "intermediate": 1.5,
+    "advanced": 2.0,
+    "expert": 3.0
+  },
+  "tiers": [
+    { "slug": "00-setup",           "label": "Setup",               "difficulty": "setup",        "multiplier": 1.0, "description": "Dependency checks, identity, git version." },
+    { "slug": "10-basics",          "label": "Basics",              "difficulty": "basics",       "multiplier": 1.0, "description": "Add, commit, amend, log, diff, .gitignore, restore." },
+    { "slug": "20-branching",       "label": "Branching",           "difficulty": "intermediate", "multiplier": 1.5, "description": "Create, switch, delete, rename, merge branches." },
+    { "slug": "30-remote",          "label": "Remote",              "difficulty": "intermediate", "multiplier": 1.5, "description": "Push, pull, fetch, track, force-with-lease." },
+    { "slug": "40-github-issues",   "label": "GitHub Issues",       "difficulty": "intermediate", "multiplier": 1.5, "description": "Create, comment, label, assign, close, link." },
+    { "slug": "50-github-prs",      "label": "GitHub Pull Requests","difficulty": "intermediate", "multiplier": 1.5, "description": "Open, review, comment, merge, squash, draft." },
+    { "slug": "60-conflicts",       "label": "Conflicts",           "difficulty": "advanced",     "multiplier": 2.0, "description": "Resolve, abort, rebase-with-conflict." },
+    { "slug": "70-advanced-git",    "label": "Advanced Git",        "difficulty": "advanced",     "multiplier": 2.0, "description": "Interactive rebase, cherry-pick, stash, bisect, reflog." },
+    { "slug": "80-expert",          "label": "Expert",              "difficulty": "expert",       "multiplier": 3.0, "description": "Submodule, worktree, signed commits, history rewrite." },
+    { "slug": "90-github-advanced", "label": "GitHub Advanced",     "difficulty": "advanced",     "multiplier": 2.0, "description": "Releases, gists, workflows, branch protection." }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "$comment": "Rubric: base points per test id. Final score for a passing test = points * tier_multiplier (see tiers.json). When adding a new test, also add it here AND create tests/<tier>/<id>.md and scripts/verify/<tier>/<id>.sh.",
+  "tests": {
+    "00-setup-01": { "tier": "00-setup", "points": 5,  "title": "Detect git and gh versions" },
+    "00-setup-02": { "tier": "00-setup", "points": 5,  "title": "Configure git identity" },
+    "00-setup-03": { "tier": "00-setup", "points": 5,  "title": "Verify fork configuration" },
+
+    "10-basics-01": { "tier": "10-basics", "points": 5, "title": "Create file and commit" },
+    "10-basics-02": { "tier": "10-basics", "points": 5, "title": "Stage specific files" },
+    "10-basics-03": { "tier": "10-basics", "points": 5, "title": "Amend last commit" },
+    "10-basics-04": { "tier": "10-basics", "points": 5, "title": "View commit log" },
+    "10-basics-05": { "tier": "10-basics", "points": 5, "title": "Inspect a diff" },
+    "10-basics-06": { "tier": "10-basics", "points": 5, "title": "Revert a commit" },
+    "10-basics-07": { "tier": "10-basics", "points": 5, "title": "Use .gitignore" },
+    "10-basics-08": { "tier": "10-basics", "points": 5, "title": "Restore a modified file" },
+
+    "20-branching-01": { "tier": "20-branching", "points": 5, "title": "Create a branch" },
+    "20-branching-02": { "tier": "20-branching", "points": 5, "title": "Switch branches" },
+    "20-branching-03": { "tier": "20-branching", "points": 5, "title": "Delete a branch" },
+    "20-branching-04": { "tier": "20-branching", "points": 5, "title": "Rename a branch" },
+    "20-branching-05": { "tier": "20-branching", "points": 6, "title": "Merge a branch" },
+    "20-branching-06": { "tier": "20-branching", "points": 6, "title": "Fast-forward merge" },
+    "20-branching-07": { "tier": "20-branching", "points": 6, "title": "Merge commit with message" },
+
+    "30-remote-01": { "tier": "30-remote", "points": 8,  "title": "Push a branch to origin" },
+    "30-remote-02": { "tier": "30-remote", "points": 8,  "title": "Pull changes" },
+    "30-remote-03": { "tier": "30-remote", "points": 8,  "title": "Fetch a remote" },
+    "30-remote-04": { "tier": "30-remote", "points": 8,  "title": "Track a remote branch" },
+    "30-remote-05": { "tier": "30-remote", "points": 10, "title": "Force push with lease" },
+
+    "40-github-issues-01": { "tier": "40-github-issues", "points": 8,  "title": "Create an issue" },
+    "40-github-issues-02": { "tier": "40-github-issues", "points": 8,  "title": "Comment on an issue" },
+    "40-github-issues-03": { "tier": "40-github-issues", "points": 8,  "title": "Label an issue" },
+    "40-github-issues-04": { "tier": "40-github-issues", "points": 8,  "title": "Assign an issue" },
+    "40-github-issues-05": { "tier": "40-github-issues", "points": 8,  "title": "Close an issue" },
+    "40-github-issues-06": { "tier": "40-github-issues", "points": 10, "title": "Link an issue to a PR" },
+
+    "50-github-prs-01": { "tier": "50-github-prs", "points": 10, "title": "Open a pull request" },
+    "50-github-prs-02": { "tier": "50-github-prs", "points": 8,  "title": "Comment on a PR" },
+    "50-github-prs-03": { "tier": "50-github-prs", "points": 10, "title": "Add a PR review" },
+    "50-github-prs-04": { "tier": "50-github-prs", "points": 10, "title": "Request changes on a PR" },
+    "50-github-prs-05": { "tier": "50-github-prs", "points": 10, "title": "Merge a PR" },
+    "50-github-prs-06": { "tier": "50-github-prs", "points": 10, "title": "Squash-merge a PR" },
+    "50-github-prs-07": { "tier": "50-github-prs", "points": 8,  "title": "Open a draft PR" },
+    "50-github-prs-08": { "tier": "50-github-prs", "points": 8,  "title": "Update a PR description" },
+
+    "60-conflicts-01": { "tier": "60-conflicts", "points": 10, "title": "Resolve a merge conflict" },
+    "60-conflicts-02": { "tier": "60-conflicts", "points": 8,  "title": "Abort an in-progress merge" },
+    "60-conflicts-03": { "tier": "60-conflicts", "points": 12, "title": "Rebase with conflict resolution" },
+
+    "70-advanced-git-01": { "tier": "70-advanced-git", "points": 12, "title": "Interactive rebase: squash commits" },
+    "70-advanced-git-02": { "tier": "70-advanced-git", "points": 10, "title": "Cherry-pick a commit" },
+    "70-advanced-git-03": { "tier": "70-advanced-git", "points": 10, "title": "Stash, switch, and pop" },
+    "70-advanced-git-04": { "tier": "70-advanced-git", "points": 12, "title": "Use git bisect to find a bug" },
+    "70-advanced-git-05": { "tier": "70-advanced-git", "points": 10, "title": "Recover a commit via reflog" },
+    "70-advanced-git-06": { "tier": "70-advanced-git", "points": 10, "title": "Understand reset modes" },
+    "70-advanced-git-07": { "tier": "70-advanced-git", "points": 8,  "title": "Create an annotated tag" },
+
+    "80-expert-01": { "tier": "80-expert", "points": 12, "title": "Add and track a submodule" },
+    "80-expert-02": { "tier": "80-expert", "points": 12, "title": "Create a git worktree" },
+    "80-expert-03": { "tier": "80-expert", "points": 15, "title": "Make a GPG-signed commit" },
+    "80-expert-04": { "tier": "80-expert", "points": 15, "title": "Make an SSH-signed commit" },
+    "80-expert-05": { "tier": "80-expert", "points": 12, "title": "Perform a sparse checkout" },
+    "80-expert-06": { "tier": "80-expert", "points": 12, "title": "Partial clone with filter" },
+    "80-expert-07": { "tier": "80-expert", "points": 15, "title": "Rewrite history with filter-repo semantics" },
+
+    "90-github-advanced-01": { "tier": "90-github-advanced", "points": 12, "title": "Create a GitHub release" },
+    "90-github-advanced-02": { "tier": "90-github-advanced", "points": 12, "title": "Upload a release asset" },
+    "90-github-advanced-03": { "tier": "90-github-advanced", "points": 10, "title": "Create a gist" },
+    "90-github-advanced-04": { "tier": "90-github-advanced", "points": 12, "title": "Trigger a workflow via workflow_dispatch" },
+    "90-github-advanced-05": { "tier": "90-github-advanced", "points": 10, "title": "Read a workflow run result" },
+    "90-github-advanced-06": { "tier": "90-github-advanced", "points": 14, "title": "Configure branch protection" }
+  }
+}
