@@ -1,0 +1,39 @@
+name: Validate tests
+
+on:
+  pull_request:
+    paths:
+      - 'tests/**'
+      - 'scripts/**'
+      - 'scoring/**'
+      - '.github/workflows/validate-tests.yml'
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Structural validation
+        run: python3 scripts/validate_tests.py
+
+      - name: Shellcheck verify scripts
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y shellcheck
+          # Lint every verify script and the harness. We don't fail on style
+          # issues — only on genuine errors (SC2xxx).
+          shellcheck -S error scripts/*.sh scripts/lib/*.sh scripts/verify/**/*.sh || exit 1
+
+      - name: Dry-run enumeration
+        run: bash scripts/run_tests.sh --dry-run | sort | tee /tmp/dryrun.txt

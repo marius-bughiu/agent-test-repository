@@ -1,0 +1,73 @@
+name: Nightly report
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # 06:00 UTC daily
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Structural validation
+        run: python3 scripts/validate_tests.py
+
+      - name: Summarize test counts by tier
+        id: summary
+        run: |
+          total="$(jq '.tests | length' scoring/rubric.json)"
+          tiers="$(jq -r '.tests | to_entries | group_by(.value.tier)[] | "\(.[0].value.tier)\t\(length)"' scoring/rubric.json | sort)"
+          {
+            echo "total=$total"
+            echo "tiers<<EOF"
+            echo "$tiers"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+          echo "$tiers"
+
+      - name: Open/update tracking issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const total = '${{ steps.summary.outputs.total }}';
+            const tiers = `${{ steps.summary.outputs.tiers }}`;
+            const rows = tiers.trim().split('\n').map(l => {
+              const [t, n] = l.split('\t');
+              return `| \`${t}\` | ${n} |`;
+            }).join('\n');
+            const body = [
+              `### Daily harness status`,
+              `Run: ${new Date().toISOString()}`,
+              ``,
+              `**Total tests in rubric:** ${total}`,
+              ``,
+              `| Tier | Count |`,
+              `|---|---:|`,
+              rows,
+            ].join('\n');
+            const title = 'Nightly report: harness status';
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo,
+              state: 'open', labels: 'nightly-report'
+            });
+            if (existing.data.length) {
+              await github.rest.issues.update({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: existing.data[0].number,
+                body
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner, repo: context.repo.repo,
+                title, body, labels: ['nightly-report']
+              });
+            }

@@ -1,0 +1,20 @@
+name: Ping
+
+# Minimal workflow used by tests 90-github-advanced-04 (dispatch) and
+# 90-github-advanced-05 (read result). Always completes with conclusion=success
+# so those tests have a deterministic target.
+
+on:
+  workflow_dispatch: {}
+  push:
+    paths:
+      - '.github/workflows/ping.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  pong:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "pong"
