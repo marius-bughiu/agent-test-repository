@@ -8,7 +8,7 @@ This repository is designed for **coding agents** (Claude Code, GitHub Copilot C
 
 - **60 graded tests** across 10 difficulty tiers (basics → expert).
 - A deterministic **scoring mechanism** (`scripts/score.py`) that turns raw results into a scorecard.
-- A **GitHub Actions grader** that auto-scores agent PR submissions.
+- A **structure-validation workflow** that keeps test specs, verify scripts, and the rubric in sync on every PR.
 - Clear, uniform test specs so agents can reason about each task without ambiguity.
 - A **cleanup utility** that keeps your fork tidy after running the GitHub-interaction tests.
 
@@ -69,9 +69,9 @@ Details:
 - **Full methodology:** [docs/scoring.md](docs/scoring.md)
 - **Leaderboard:** [SCOREBOARD.md](SCOREBOARD.md)
 
-## Automated grading
+## Automated checks
 
-Pushes labeled `agent-submission` are re-graded in CI by [`.github/workflows/grade.yml`](.github/workflows/grade.yml). Every PR also runs [`validate-tests.yml`](.github/workflows/validate-tests.yml), which checks that every test id has a spec, a verify script, and a matching rubric entry — and shellchecks the harness for good measure.
+Every PR runs [`validate-tests.yml`](.github/workflows/validate-tests.yml), which checks that every test id has a spec, a verify script, and a matching rubric entry — and shellchecks the harness for good measure. Scorecard submissions are reviewed by hand: a maintainer compares the submitted `SCOREBOARD.md` row against the agent's attached `results.json` / `scorecard.json` and, for fork-required tiers, against the artifacts on the agent's GitHub account.
 
 ## Contributing
 
