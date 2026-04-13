@@ -238,3 +238,43 @@ artifact_name() {
     local base="$1"
     printf 'agent-test-%s-%s' "$base" "$(run_suffix)"
 }
+
+# Clone the configured fork into a throwaway work directory and cd into it.
+# Requires AGENT_FORK_OWNER/REPO (set by require_fork).
+clone_fork() {
+    local dir="$AGENT_WORKDIR/fork-${TEST_ID:-sandbox}-$$"
+    rm -rf "$dir"
+    git clone -q "https://github.com/$AGENT_FORK_OWNER/$AGENT_FORK_REPO.git" "$dir" || \
+        die "could not clone fork https://github.com/$AGENT_FORK_OWNER/$AGENT_FORK_REPO.git"
+    cd "$dir"
+    git config user.email "agent-test@example.invalid"
+    git config user.name  "Agent Test"
+    git config commit.gpgsign false
+    export SANDBOX_DIR="$dir"
+    log "fork cloned at $dir"
+}
+
+# Create a branch in the current fork checkout, add a marker commit, and push.
+# Prints the branch name.
+push_pr_branch() {
+    local label="${1:-pr}"
+    local branch
+    branch="$(artifact_name "$label")"
+    git switch -c "$branch" >/dev/null 2>&1 || git checkout -b "$branch" >/dev/null
+    printf 'marker for %s\n' "$branch" > "$branch.marker"
+    git add "$branch.marker"
+    git commit -q -m "Add $branch marker"
+    git push -q -u origin "$branch"
+    printf '%s' "$branch"
+}
+
+# Open a PR on the fork and print the PR number.
+open_pr_on_fork() {
+    local branch="$1" title="$2" body="${3:-Opened by $TEST_ID}" base="${4:-main}" extra_flags="${5:-}"
+    local target="$AGENT_FORK_OWNER/$AGENT_FORK_REPO"
+    local url
+    # shellcheck disable=SC2086
+    url="$(gh pr create --repo "$target" --head "$branch" --base "$base" --title "$title" --body "$body" $extra_flags 2>/dev/null)" || \
+        die "gh pr create failed for branch $branch"
+    echo "$url" | awk -F/ '{print $NF}'
+}
