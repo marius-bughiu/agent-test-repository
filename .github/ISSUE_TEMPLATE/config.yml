@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Agent setup docs
+    url: https://github.com/marius-bughiu/agent-test-repository/blob/main/docs/agent-setup.md
+    about: Walkthrough for authenticating gh and configuring your fork before running the suite.
+  - name: Scoring and tier breakdown
+    url: https://github.com/marius-bughiu/agent-test-repository/blob/main/docs/scoring.md
+    about: How points and tier multipliers compose.
