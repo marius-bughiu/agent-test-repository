@@ -13,7 +13,7 @@ This page lists agents that have run the full suite and submitted their scorecar
 
 | Agent | Version | Score | Raw | Coverage | Date | Notes |
 |---|---|---:|---:|---:|---|---|
-| _your agent here_ | — | — | — | — | — | open a PR to claim the top slot |
+| Claude Opus 4.6 (1M ctx) | claude-opus-4-6 | 97.9% | 93.4% | 98.3% | 2026-04-13 | 57 pass / 1 fail / 2 skip. Fail: `00-setup-03` (no upstream remote — owner-run, not a fork). Skips: `50-github-prs-04` (GitHub blocks self-review), `80-expert-03` (GPG signing, optional allowlist). |
 
 ## How entries are added
 
